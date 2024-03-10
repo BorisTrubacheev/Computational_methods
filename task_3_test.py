@@ -44,8 +44,6 @@ def main():
                   ['name', 'A_cond', 'Q_cond', 'R_cond', 'x_deviation'])
 
 
-
-
 if __name__ == '__main__':
     main()
 

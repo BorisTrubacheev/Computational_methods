@@ -1,43 +1,4 @@
 import numpy as np
-from commons import get_hilbert_matrix
-
-
-def get_single_vector(length: int, position: int):
-    e = np.zeros(length)
-    e[position - 1] += 1
-    return e
-
-
-def get_reflection_matrix(vect: np.array):
-    e = get_single_vector(len(vect), 1)
-    x = (vect - np.linalg.norm(vect, 2) * e)
-    y = np.linalg.norm(vect - np.linalg.norm(vect, 2) * e, 2)
-    x = x / y
-    I = np.eye(len(vect))
-    y = x[:, np.newaxis]
-    print(x[np.newaxis, :].shape)
-    z = np.matmul(y, x[np.newaxis, :])
-    return I - 2 * z
-
-
-def get_block_diagonal_matrix(m1: np.array, m2: np.array):
-    res = np.zeros((len(m1) + len(m2), len(m1) + len(m2)))
-    res[:len(m1), :len(m1)] = m1
-    res[-len(m2):, -len(m2):] = m2
-    return res
-
-
-def get_qr_matrix_decomposition(matrix: np.array):
-    Q = np.eye(len(matrix))
-    for i in range(len(matrix)):
-        U = get_reflection_matrix(matrix[i:, i])
-        U1 = get_block_diagonal_matrix(np.eye(i), U)
-        Q = np.matmul(U1, Q)
-        matrix[i:, i:] = np.matmul(U, (matrix[i:, i:]))
-
-    print(Q)
-    print(matrix)
-    return
 
 
 def get_rotate_matrix(n, sin, cos, i, j) -> np.array:
