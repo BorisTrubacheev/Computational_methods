@@ -2,17 +2,7 @@ import numpy as np
 import pandas as pd
 from task_1 import get_spectral_conditionality_number, get_volume_conditionality_number, \
     get_angle_conditionality_number
-from main import read_float, proceed
-
-
-def get_hilbert_matrix(n: int) -> np.ndarray:
-    m = np.ndarray((n, n))
-    div = 1
-    for i in range(n):
-        for j in range(n):
-            m[i][j] = 1 / (div + j)
-        div += 1
-    return m
+from commons import read_float, proceed, get_hilbert_matrix
 
 
 def get_test_data():
