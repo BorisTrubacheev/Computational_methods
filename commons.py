@@ -45,22 +45,6 @@ def get_hilbert_matrix(n: int) -> np.ndarray:
     return m
 
 
-def get_test_cases():
-    np.random.seed(2024)
-    test_matrices = [Matrix('random (4,4)', np.random.random((4, 4)) + np.random.randint(0, 100, (4, 4))),
-                  Matrix('random (8,8)', np.random.random((8, 8)) + np.random.randint(0, 100, (8, 8))),
-                  Matrix('diag (3,3)', np.array([[192, 0, 0],
-                                                 [0, 0.123, 0],
-                                                 [0, 0, 82]])),
-                  Matrix('hilbert (3,3)', get_hilbert_matrix(3)),
-                  Matrix('hilbert (7,7)', get_hilbert_matrix(7))]
-    test_cases = []
-    for m in test_matrices:
-        test_cases.append(MatrixEquation(m, 2))
-
-    return test_cases
-
-
 def get_cond_numbers_for_matrix(matrix: np.array) -> np.array:
     cond_numbers = [get_spectral_conditionality_number(matrix),
                     get_volume_conditionality_number(matrix),
@@ -86,3 +70,14 @@ def proceed(question: str) -> bool:
             return False
         else:
             print("Ожидаемый ответ 'да' или 'нет'")
+
+
+def read_non_negative_int(message: str) -> int:
+    while True:
+        try:
+            i = int(input(message))
+            if i >= 0:
+                return i
+            print("Ожидается неотрицательное число!")
+        except ValueError:
+            print("Некорректный ввод!")

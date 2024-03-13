@@ -1,7 +1,23 @@
 import numpy as np
-from commons import get_test_cases, MatrixEquation, print_results, proceed
+from commons import MatrixEquation, print_results, proceed, Matrix, get_hilbert_matrix
 from task_1 import get_spectral_conditionality_number
 from task_3 import qr_decompose
+
+
+def get_test_cases():
+    np.random.seed(2024)
+    test_matrices = [Matrix('random (4,4)', np.random.random((4, 4)) + np.random.randint(0, 100, (4, 4))),
+                     Matrix('random (8,8)', np.random.random((8, 8)) + np.random.randint(0, 100, (8, 8))),
+                     Matrix('diag (3,3)', np.array([[192, 0, 0],
+                                                    [0, 0.123, 0],
+                                                    [0, 0, 82]])),
+                     Matrix('hilbert (3,3)', get_hilbert_matrix(3)),
+                     Matrix('hilbert (7,7)', get_hilbert_matrix(7))]
+    test_cases = []
+    for m in test_matrices:
+        test_cases.append(MatrixEquation(m, 2))
+
+    return test_cases
 
 
 def print_qr_decomposition(equation: MatrixEquation, Q, R, x):
@@ -11,6 +27,7 @@ def print_qr_decomposition(equation: MatrixEquation, Q, R, x):
     print('Матрица R:')
     print(R, '\n')
     print('Вычисленное решение: ', x)
+
 
 def main():
     test_cases = get_test_cases()
@@ -46,5 +63,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
